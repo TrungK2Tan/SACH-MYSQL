@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>Ung Dung Quan Ly Sach</title>
   <link th:href="@{/css/style.css}" rel="stylesheet"/>
-  <link th:replace="layout :: link-css"/>
+  <link th:replace="~{layout :: link-css}"/>
 </head>
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="~{layout :: header}"></th:block>
 <div class="container">
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
