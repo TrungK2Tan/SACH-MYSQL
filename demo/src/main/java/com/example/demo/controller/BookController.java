@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.Errors;
 
 import java.util.List;
 
@@ -54,7 +55,12 @@ public class BookController {
     }
 
     @PostMapping("/edit")
-    public String editBooks(@ModelAttribute("book") Book updateBook) {
+    public String editBooks(@Valid Book updateBook,Errors errors, Model model) {
+        if (errors != null && errors.getErrorCount() > 0) {
+            model.addAttribute("categories", categoryService.getAllCategories());
+            return "book/edit";
+        }
+        else
         // Logic để xử lý dữ liệu sách đã chỉnh sửa và lưu vào cơ sở dữ liệu
         bookService.updateBook(updateBook);
 
