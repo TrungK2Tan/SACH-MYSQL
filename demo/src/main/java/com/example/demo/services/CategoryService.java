@@ -11,24 +11,18 @@ import java.util.List;
 public class CategoryService {
     @Autowired
     private ICategoryRepository categoryRepository;
-    public List<Category> getAllCategories(){
-        return  categoryRepository.findAll();
-    }
-    public  Category getCategoryById(Long id){
-        return  categoryRepository.findById(id).orElse(null);
-    }
-    public Category saveCategory(Category category){
-        return  categoryRepository.save(category);
-    }
-    public Category addCategory(Category category) {
-        return categoryRepository.save(category);
+
+    public List<Category> getAllCategories(){return categoryRepository.findAll();}
+
+    public Category getCategoryById(Long id){return categoryRepository.findById(id).orElse(null);}
+
+    public Category saveCategory(Category category){ return categoryRepository.save(category);}
+
+    public void deleteCategory(Long id){categoryRepository.deleteById(id);}
+
+    public void addCategory(Category category) {categoryRepository.save(category);
     }
 
-    public Category updateCategory(Category category) {
-        return categoryRepository.save(category);
-    }
-    public void deleteCategory(Long id){
-        categoryRepository.deleteById(id);
+    public void updateCategory(Category updateCategory) {categoryRepository.save(updateCategory);
     }
 }
-

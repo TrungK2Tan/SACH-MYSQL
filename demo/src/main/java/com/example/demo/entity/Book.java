@@ -2,40 +2,37 @@ package com.example.demo.entity;
 
 import com.example.demo.Validator.annotation.ValidCategoryId;
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.*;
-import com.example.demo.Validator.annotation.ValidUserId;
 import lombok.Data;
+
 @Data
 @Entity
-@Table(name = "book")
+@Table (name ="book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
 
-    @Column(name = "title")
+    @Column(name ="title")
     @NotEmpty(message = "Title must not be empty")
-    @Size(max = 50,min = 1,message = "Title must be less than 50 characters")
-    private String title;
+    @Size(max = 50, min = 1, message = "Title must be less than 50 characters")
 
-    @Column(name = "author")
-    private String author;
+    private  String title;
+    @Column(name ="author")
+    private  String author;
 
-    @Column(name = "price")
-    @NotNull(message = "Price is required")
+    @Column(name ="price")
+    @NotNull(message ="Price is required")
     private  Double price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     @ValidCategoryId
-    private  Category category;
+    private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    @ValidUserId
+    @JoinColumn(name ="user_id", referencedColumnName = "id")
     private User user;
 }

@@ -18,7 +18,7 @@
       <th>Author</th>
       <th>Price</th>
       <th>Category</th>
-      <th sec:authorize ="hasAnyAuthority('AD')">Action</th>
+      <th sec:authorize ="hasAnyAuthority('Admin')">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
       <td th:text="${book.author}"></td>
       <td th:text="${book.price}"></td>
       <td th:text="${book.category.name}"></td>
-      <td sec:authorize = "hasAnyAuthority('AD')">
+      <td sec:authorize = "hasAnyAuthority('Admin')">
         <a th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a>
         <a th:href="@{/books/delete/{id}(id=${book.id})}"
            onclick="return confirm('Are you sure?')">Delete</a>

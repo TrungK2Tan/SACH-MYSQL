@@ -1,9 +1,9 @@
 package com.example.demo.Utils;
 
 import com.example.demo.services.CustomUserDetailService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.CachingUserDetailsService;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -31,6 +32,7 @@ public class SecurityConfig {
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
             Exception {
@@ -39,12 +41,14 @@ public class SecurityConfig {
                         .requestMatchers( "/css/**", "/js/**", "/", "/register",
                                 "/error")
                         .permitAll()
+
                         .requestMatchers( "/books/edit", "/books/delete")
-                        .hasAnyAuthority("ADMIN")
+
+                        .hasAnyAuthority("/Admin")
 
                         .requestMatchers("/books", "/books/add")
 
-                        .hasAnyAuthority("Admin","Member")
+                        .hasAnyAuthority("Admin","USER")
 
                         .anyRequest().authenticated()
 
@@ -61,11 +65,13 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/")
+
                         .permitAll()
 
                 )
                 .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret")
-                        .tokenValiditySeconds(86400).userDetailsService(userDetailsService())
+                        .tokenValiditySeconds(86400)
+                        .userDetailsService(userDetailsService())
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling.accessDeniedPage("/403"))
